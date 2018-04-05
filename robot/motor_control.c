@@ -280,6 +280,16 @@ void motor_control(void)
 		if(move_state!=1)set_directive(1);
 		break;
         
+        case 0b00011u:
+		if(move_state!=6)set_directive(6);
+        count = 0;
+		break;		
+		
+        case 0b11000u:
+		if(move_state!=1)set_directive(1);
+        count = 0;
+		break;
+        
          case 0b00000u:
              
              
@@ -289,7 +299,7 @@ void motor_control(void)
 				start_tmr();
 			}
              
-            if(count<=500){
+            if(count<=750){
                 if(side_mem==1)set_directive(0);
                 if(side_mem==3)set_directive(7);
                 side_mem=2;

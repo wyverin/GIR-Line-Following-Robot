@@ -5068,7 +5068,7 @@ initialization();
 printf("\n\rKwantlen APSC1299 simple curve follower -- with error codes\n\r");
 asm(" clrwdt");
 
-threshold = 240u;
+threshold = 140u;
 
 
 OpenTimer0(0b01111111 & 0b10000111 & 0b11111110);

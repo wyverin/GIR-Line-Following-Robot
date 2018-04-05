@@ -94,17 +94,17 @@ fast 6
 [v _change_track change_track `(v  1 e 0 0 ]
 "140
 [v _motor_control motor_control `(v  1 e 0 0 ]
-"388
-[v _follow_simple_curves follow_simple_curves `(v  1 e 0 0 ]
 "398
+[v _follow_simple_curves follow_simple_curves `(v  1 e 0 0 ]
+"408
 [v _spin_left spin_left `(v  1 e 0 0 ]
-"404
-[v _turn_left turn_left `(v  1 e 0 0 ]
-"409
-[v _straight_fwd straight_fwd `(v  1 e 0 0 ]
 "414
-[v _spin_right spin_right `(v  1 e 0 0 ]
+[v _turn_left turn_left `(v  1 e 0 0 ]
 "419
+[v _straight_fwd straight_fwd `(v  1 e 0 0 ]
+"424
+[v _spin_right spin_right `(v  1 e 0 0 ]
+"429
 [v _turn_right turn_right `(v  1 e 0 0 ]
 "65 /media/wyverin/GAVINHEATH/GavinHAPSC1299/robot/sumovore.c
 [v _initialization initialization `(v  1 e 0 0 ]
@@ -924,7 +924,7 @@ fast 6
 "140 /media/wyverin/GAVINHEATH/GavinHAPSC1299/robot/motor_control.c
 [v _motor_control motor_control `(v  1 e 0 0 ]
 {
-"386
+"396
 } 0
 "45
 [v _start_tmr start_tmr `(v  1 e 0 0 ]
@@ -1005,30 +1005,30 @@ fast 6
 [v set_directive@directive directive `i  1 p 2 29 ]
 "100
 } 0
-"419
+"429
 [v _turn_right turn_right `(v  1 e 0 0 ]
 {
-"423
-} 0
-"404
-[v _turn_left turn_left `(v  1 e 0 0 ]
-{
-"408
-} 0
-"409
-[v _straight_fwd straight_fwd `(v  1 e 0 0 ]
-{
-"413
+"433
 } 0
 "414
-[v _spin_right spin_right `(v  1 e 0 0 ]
+[v _turn_left turn_left `(v  1 e 0 0 ]
 {
 "418
 } 0
-"398
+"419
+[v _straight_fwd straight_fwd `(v  1 e 0 0 ]
+{
+"423
+} 0
+"424
+[v _spin_right spin_right `(v  1 e 0 0 ]
+{
+"428
+} 0
+"408
 [v _spin_left spin_left `(v  1 e 0 0 ]
 {
-"402
+"412
 } 0
 "40
 [v _pirouette_right pirouette_right `(v  1 e 0 0 ]

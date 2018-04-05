@@ -24,7 +24,7 @@ void main(void)
     printf("\n\rKwantlen APSC1299 simple curve follower -- with error codes\n\r"); 
     ClrWdt();         // defined in <p18f4525.h>
 
-  threshold = 240u; // to change from default value
+  threshold = 140u; // to change from default value
                      // uncomment and change to any unsigned int <1024u -- most usually <512u
 
     OpenTimer0(TIMER_INT_OFF & T2_POST_1_1 & T2_PS_1_16);

@@ -5236,6 +5236,16 @@ case 0b10000u:
 if(move_state!=1)set_directive(1);
 break;
 
+case 0b00011u:
+if(move_state!=6)set_directive(6);
+count = 0;
+break;
+
+case 0b11000u:
+if(move_state!=1)set_directive(1);
+count = 0;
+break;
+
 case 0b00000u:
 
 
@@ -5245,14 +5255,14 @@ if(move_state!=4)set_directive(4);
 start_tmr();
 }
 
-if(count<=500){
+if(count<=750){
 if(side_mem==1)set_directive(0);
 if(side_mem==3)set_directive(7);
 side_mem=2;
 
 }
 
-# 312
+# 322
 if(tmr_state==1 && ReadTimer0()>35000){
 
 set_directive(0);
@@ -5269,7 +5279,7 @@ if(side_mem==3)set_directive(7);
 side_mem=2;
 }
 
-# 362
+# 372
 case 0b11111u:
 
 if(tmr_state!=1){
@@ -5319,7 +5329,7 @@ set_motor_speed(right, slow, 0);
 }
 void straight_fwd(void)
 {
-set_motor_speed(left, slow, 75);
+set_motor_speed(left, slow, 60);
 set_motor_speed(right, slow, 0);
 }
 void spin_right(void)
