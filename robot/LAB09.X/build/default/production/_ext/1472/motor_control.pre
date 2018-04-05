@@ -47,6 +47,7 @@ extern int move_state;
 extern int memory;
 extern int side_mem;
 extern int tmr_state;
+extern int count;
 
 void motor_control(void);
 
@@ -4976,8 +4977,9 @@ int move_state;
 int memory;
 int side_mem;
 int tmr_state;
+int count;
 
-# 23
+# 24
 void follow_simple_curves(void);
 void spin_left(void);
 void turn_left(void);
@@ -5010,7 +5012,12 @@ void clr_tmr(){
 TMR0IF = 0;
 tmr_state = 0;
 }
+void start_tmr1(){
+TMR0IF = 0;
+WriteTimer0(63000u);
+tmr_state = 1;
 
+}
 
 void set_directive(int directive)
 {
@@ -5085,7 +5092,7 @@ clr_mem();
 
 }
 
-# 134
+# 140
 void motor_control(void)
 {
 
@@ -5140,6 +5147,7 @@ else if(memory==1)
 {
 change_track();
 }
+count = 0;
 side_mem = 1;
 break;
 
@@ -5153,6 +5161,8 @@ else if(memory==1)
 {
 change_track();
 }
+
+count = 0;
 side_mem = 3;
 break;
 case 0b11110u:
@@ -5166,6 +5176,7 @@ else if(memory==1)
 {
 change_track();
 }
+count = 0;
 side_mem = 1;
 break;
 
@@ -5179,6 +5190,7 @@ else if(memory==1)
 {
 change_track();
 }
+count = 0;
 side_mem = 3;
 break;
 case 0b10111u:
@@ -5190,6 +5202,7 @@ else if(memory==1)
 {
 change_track();
 }
+count = 0;
 side_mem = 3;
 break;
 
@@ -5203,6 +5216,7 @@ else if(memory==1)
 change_track();
 }
 side_mem = 1;
+count = 0;
 break;
 
 
@@ -5223,29 +5237,39 @@ if(move_state!=1)set_directive(1);
 break;
 
 case 0b00000u:
+
+
+
 if(tmr_state!=1){
 if(move_state!=4)set_directive(4);
 start_tmr();
 }
 
+if(count<=1000){
+if(side_mem==1)set_directive(0);
+if(side_mem==3)set_directive(7);
+side_mem=2;`
+
+}
+
+# 312
+if(tmr_state==1 && ReadTimer0()>35000){
+
+set_directive(0);
+while(TMR0IF != 1||ReadTimer0()<13000);
+clr_tmr();
+
+
+}
+break;
+case 0b10001:
 if(tmr_state==1 && side_mem!=2 && ReadTimer0() < 20000){
 if(side_mem==1)set_directive(0);
 if(side_mem==3)set_directive(7);
 side_mem=2;
 }
 
-# 286
-if(tmr_state==1){
-if(ReadTimer0()>35000){
-set_directive(0);
-while(TMR0IF != 1||ReadTimer0()<13000);
-clr_tmr();
-}
-
-}
-break;
-
-# 330
+# 362
 case 0b11111u:
 
 if(tmr_state!=1){
@@ -5267,6 +5291,7 @@ default:
 
 break;
 }
+count++;
 }
 
 void follow_simple_curves(void)

@@ -10,11 +10,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _OpenTimer0 `(v ~T0 @X0 0 ef1`uc ]
 "4 ../motor_control.h
 [v _side_mem `i ~T0 @X0 0 e ]
+"6
+[v _count `i ~T0 @X0 0 e ]
 "107 ../sumovore.h
 [v _check_sensors `(v ~T0 @X0 0 ef ]
 "106
 [v _set_leds `(v ~T0 @X0 0 ef ]
-"7 ../motor_control.h
+"8 ../motor_control.h
 [v _motor_control `(v ~T0 @X0 0 ef ]
 "1 ../interrupts.h
 [v _lvd_flag_set `(uc ~T0 @X0 0 ef ]
@@ -3775,7 +3777,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motor_control.h: 3: extern int memory;
 [; ;motor_control.h: 4: extern int side_mem;
 [; ;motor_control.h: 5: extern int tmr_state;
-[; ;motor_control.h: 7: void motor_control(void);
+[; ;motor_control.h: 6: extern int count;
+[; ;motor_control.h: 8: void motor_control(void);
 [; ;interrupts.h: 1: unsigned char lvd_flag_set(void);
 [; ;Delay_functions.h: 2: void WaitOneSecond(void);
 [; ;Delay_functions.h: 3: void WaitQuarterSecond(void);
@@ -3817,6 +3820,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 32: side_mem=2;
 "32
 [e = _side_mem -> 2 `i ]
+[; ;main.c: 33: count = 0;
+"33
+[e = _count -> 0 `i ]
 [; ;main.c: 34: while(1)
 "34
 [e :U 401 ]

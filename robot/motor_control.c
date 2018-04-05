@@ -9,6 +9,7 @@
 	int memory; //toggle that will allow robot to follow extrenious lines
 	int side_mem; //memory for which side sensors the robot is currently following
 	int tmr_state; //1 timer is hot 0 timer is cold
+    int count; //brute force this bitch
 
 /* reference material:
 
@@ -52,7 +53,12 @@ void clr_tmr(){
 	TMR0IF = 0;
 	tmr_state = 0;
 }
+void start_tmr1(){
+	TMR0IF = 0;
+	WriteTimer0(63000u);
+	tmr_state = 1;
 
+}
 
 void set_directive(int directive)
 {
@@ -185,6 +191,7 @@ void motor_control(void)
 			{
 			change_track();
 			}
+            count = 0;
     		side_mem = 1;
 		break;
 
@@ -197,7 +204,9 @@ void motor_control(void)
 		else if(memory==1)
 			{
 			change_track();
-			}	
+			}
+        
+        count = 0;
     		side_mem = 3;
 		break;
         case 0b11110u:
@@ -211,6 +220,7 @@ void motor_control(void)
 			{
 			change_track();
 			}
+        count = 0;
     		side_mem = 1;
 		break;
 
@@ -224,6 +234,7 @@ void motor_control(void)
 			{
 			change_track();
 			}	
+            count = 0;
     		side_mem = 3;
 		break;
 	case 0b10111u:
@@ -235,6 +246,7 @@ void motor_control(void)
 			{
 				change_track();
 			}
+            count = 0;
 			side_mem = 3;
 		break;
 
@@ -248,6 +260,7 @@ void motor_control(void)
 				change_track();
 			}
         side_mem = 1;
+        count = 0;
 		break;
 
 
@@ -268,30 +281,49 @@ void motor_control(void)
 		break;
         
          case 0b00000u:
-            if(tmr_state!=1){
+             
+             
+            
+             if(tmr_state!=1){
 				if(move_state!=4)set_directive(4);
 				start_tmr();
 			}
+             
+            if(count<=1000){
+                if(side_mem==1)set_directive(0);
+                if(side_mem==3)set_directive(7);
+                side_mem=2;` 
+                
+            }
             
+            
+             
+            /*
             if(tmr_state==1 && side_mem!=2 && ReadTimer0() < 20000){
                 if(side_mem==1)set_directive(0);
                 if(side_mem==3)set_directive(7);
                 side_mem=2;
              }    
+            */
             
             
             
             
-            
-            if(tmr_state==1){
-                if(ReadTimer0()>35000){
+            if(tmr_state==1 && ReadTimer0()>35000){
+                
                     set_directive(0);
                     while(TMR0IF != 1||ReadTimer0()<13000);
                     clr_tmr();
-                }
+                
                     
             }
             break;
+         case 0b10001: 
+                if(tmr_state==1 && side_mem!=2 && ReadTimer0() < 20000){
+                if(side_mem==1)set_directive(0);
+                if(side_mem==3)set_directive(7);
+                side_mem=2;
+             } 
         /*
         
         case 0b00000u:
@@ -348,6 +380,7 @@ void motor_control(void)
 		//should NEVER trigger
 		break;
       } 
+     count++;
 }
 
 void follow_simple_curves(void)

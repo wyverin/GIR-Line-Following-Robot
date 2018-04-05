@@ -30,7 +30,7 @@ void main(void)
     OpenTimer0(TIMER_INT_OFF & T2_POST_1_1 & T2_PS_1_16);
     
     side_mem=2;
-    
+    count = 0;
     while(1)
     {
         check_sensors();    // from sumovore.c
