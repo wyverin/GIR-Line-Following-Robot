@@ -289,10 +289,10 @@ void motor_control(void)
 				start_tmr();
 			}
              
-            if(count<=1000){
+            if(count<=500){
                 if(side_mem==1)set_directive(0);
                 if(side_mem==3)set_directive(7);
-                side_mem=2;` 
+                side_mem=2;
                 
             }
             
@@ -312,7 +312,7 @@ void motor_control(void)
             if(tmr_state==1 && ReadTimer0()>35000){
                 
                     set_directive(0);
-                    while(TMR0IF != 1||ReadTimer0()<13000);
+                    while(TMR0IF != 1||ReadTimer0()<20000);
                     clr_tmr();
                 
                     
@@ -379,8 +379,10 @@ void motor_control(void)
         default:
 		//should NEVER trigger
 		break;
-      } 
+      }
+     if(count<=5000){
      count++;
+     }
 }
 
 void follow_simple_curves(void)

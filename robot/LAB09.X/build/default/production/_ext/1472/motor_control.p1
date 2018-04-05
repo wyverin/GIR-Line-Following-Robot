@@ -4561,9 +4561,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 491 ]
 [; ;motor_control.c: 290: }
-[; ;motor_control.c: 292: if(count<=1000){
+[; ;motor_control.c: 292: if(count<=500){
 "292
-[e $ ! <= _count -> 1000 `i 493  ]
+[e $ ! <= _count -> 500 `i 493  ]
 {
 [; ;motor_control.c: 293: if(side_mem==1)set_directive(0);
 "293
@@ -4575,7 +4575,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! == _side_mem -> 3 `i 495  ]
 [e ( _set_directive (1 -> 7 `i ]
 [e :U 495 ]
-[; ;motor_control.c: 295: side_mem=2;`
+[; ;motor_control.c: 295: side_mem=2;
 "295
 [e = _side_mem -> 2 `i ]
 "297
@@ -4589,12 +4589,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motor_control.c: 314: set_directive(0);
 "314
 [e ( _set_directive (1 -> 0 `i ]
-[; ;motor_control.c: 315: while(TMR0IF != 1||ReadTimer0()<13000);
+[; ;motor_control.c: 315: while(TMR0IF != 1||ReadTimer0()<20000);
 "315
 [e $U 497  ]
 [e :U 498 ]
 [e :U 497 ]
-[e $ || != -> _TMR0IF `i -> 1 `i < ( _ReadTimer0 ..  -> -> 13000 `i `ui 498  ]
+[e $ || != -> _TMR0IF `i -> 1 `i < ( _ReadTimer0 ..  -> -> 20000 `i `ui 498  ]
 [e :U 499 ]
 [; ;motor_control.c: 316: clr_tmr();
 "316
@@ -4715,145 +4715,153 @@ Version 3.2 HI-TECH Software Intermediate Code
  512 ]
 "382
 [e :U 434 ]
-[; ;motor_control.c: 383: count++;
+[; ;motor_control.c: 383: if(count<=5000){
 "383
-[e ++ _count -> 1 `i ]
-[; ;motor_control.c: 384: }
+[e $ ! <= _count -> 5000 `i 513  ]
+{
+[; ;motor_control.c: 384: count++;
 "384
+[e ++ _count -> 1 `i ]
+"385
+}
+[e :U 513 ]
+[; ;motor_control.c: 385: }
+[; ;motor_control.c: 386: }
+"386
 [e :UE 431 ]
 }
-"386
+"388
 [v _follow_simple_curves `(v ~T0 @X0 1 ef ]
-"387
+"389
 {
-[; ;motor_control.c: 386: void follow_simple_curves(void)
-[; ;motor_control.c: 387: {
+[; ;motor_control.c: 388: void follow_simple_curves(void)
+[; ;motor_control.c: 389: {
 [e :U _follow_simple_curves ]
 [f ]
-[; ;motor_control.c: 388: if (SeeLine.b.Center) straight_fwd();
-"388
-[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 514  ]
-[e ( _straight_fwd ..  ]
-[e $U 515  ]
-"389
-[e :U 514 ]
-[; ;motor_control.c: 389: else if (SeeLine.b.Left) spin_left();
-[e $ ! != -> . . _SeeLine 1 4 `i -> -> -> 0 `i `uc `i 516  ]
-[e ( _spin_left ..  ]
-[e $U 517  ]
+[; ;motor_control.c: 390: if (SeeLine.b.Center) straight_fwd();
 "390
-[e :U 516 ]
-[; ;motor_control.c: 390: else if (SeeLine.b.CntLeft) turn_left();
-[e $ ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i 518  ]
-[e ( _turn_left ..  ]
-[e $U 519  ]
+[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 515  ]
+[e ( _straight_fwd ..  ]
+[e $U 516  ]
 "391
-[e :U 518 ]
-[; ;motor_control.c: 391: else if (SeeLine.b.CntRight) turn_right();
-[e $ ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i 520  ]
-[e ( _turn_right ..  ]
-[e $U 521  ]
-"392
-[e :U 520 ]
-[; ;motor_control.c: 392: else if (SeeLine.b.Right) spin_right();
-[e $ ! != -> . . _SeeLine 1 0 `i -> -> -> 0 `i `uc `i 522  ]
-[e ( _spin_right ..  ]
-[e :U 522 ]
-"393
-[e :U 521 ]
-[e :U 519 ]
-[e :U 517 ]
 [e :U 515 ]
-[; ;motor_control.c: 393: }
-[e :UE 513 ]
+[; ;motor_control.c: 391: else if (SeeLine.b.Left) spin_left();
+[e $ ! != -> . . _SeeLine 1 4 `i -> -> -> 0 `i `uc `i 517  ]
+[e ( _spin_left ..  ]
+[e $U 518  ]
+"392
+[e :U 517 ]
+[; ;motor_control.c: 392: else if (SeeLine.b.CntLeft) turn_left();
+[e $ ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i 519  ]
+[e ( _turn_left ..  ]
+[e $U 520  ]
+"393
+[e :U 519 ]
+[; ;motor_control.c: 393: else if (SeeLine.b.CntRight) turn_right();
+[e $ ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i 521  ]
+[e ( _turn_right ..  ]
+[e $U 522  ]
+"394
+[e :U 521 ]
+[; ;motor_control.c: 394: else if (SeeLine.b.Right) spin_right();
+[e $ ! != -> . . _SeeLine 1 0 `i -> -> -> 0 `i `uc `i 523  ]
+[e ( _spin_right ..  ]
+[e :U 523 ]
+"395
+[e :U 522 ]
+[e :U 520 ]
+[e :U 518 ]
+[e :U 516 ]
+[; ;motor_control.c: 395: }
+[e :UE 514 ]
 }
-"396
+"398
 [v _spin_left `(v ~T0 @X0 1 ef ]
-"397
+"399
 {
-[; ;motor_control.c: 396: void spin_left(void)
-[; ;motor_control.c: 397: {
+[; ;motor_control.c: 398: void spin_left(void)
+[; ;motor_control.c: 399: {
 [e :U _spin_left ]
 [f ]
-[; ;motor_control.c: 398: set_motor_speed(left, rev_slow, 0);
-"398
-[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 2 `E19 -> 0 `i ]
-[; ;motor_control.c: 399: set_motor_speed(right, slow, 0);
-"399
-[e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 4 `E19 -> 0 `i ]
-[; ;motor_control.c: 400: }
+[; ;motor_control.c: 400: set_motor_speed(left, rev_slow, 0);
 "400
-[e :UE 523 ]
-}
-"402
-[v _turn_left `(v ~T0 @X0 1 ef ]
-"403
-{
-[; ;motor_control.c: 402: void turn_left(void)
-[; ;motor_control.c: 403: {
-[e :U _turn_left ]
-[f ]
-[; ;motor_control.c: 404: set_motor_speed(left, stop, 0);
-"404
-[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 3 `E19 -> 0 `i ]
-[; ;motor_control.c: 405: set_motor_speed(right, slow, 0);
-"405
+[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 2 `E19 -> 0 `i ]
+[; ;motor_control.c: 401: set_motor_speed(right, slow, 0);
+"401
 [e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 4 `E19 -> 0 `i ]
-[; ;motor_control.c: 406: }
-"406
+[; ;motor_control.c: 402: }
+"402
 [e :UE 524 ]
 }
-"407
-[v _straight_fwd `(v ~T0 @X0 1 ef ]
-"408
+"404
+[v _turn_left `(v ~T0 @X0 1 ef ]
+"405
 {
-[; ;motor_control.c: 407: void straight_fwd(void)
-[; ;motor_control.c: 408: {
-[e :U _straight_fwd ]
+[; ;motor_control.c: 404: void turn_left(void)
+[; ;motor_control.c: 405: {
+[e :U _turn_left ]
 [f ]
-[; ;motor_control.c: 409: set_motor_speed(left, slow, 75);
-"409
-[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 4 `E19 -> 75 `i ]
-[; ;motor_control.c: 410: set_motor_speed(right, slow, 0);
-"410
+[; ;motor_control.c: 406: set_motor_speed(left, stop, 0);
+"406
+[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 3 `E19 -> 0 `i ]
+[; ;motor_control.c: 407: set_motor_speed(right, slow, 0);
+"407
 [e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 4 `E19 -> 0 `i ]
-[; ;motor_control.c: 411: }
-"411
+[; ;motor_control.c: 408: }
+"408
 [e :UE 525 ]
 }
-"412
-[v _spin_right `(v ~T0 @X0 1 ef ]
-"413
+"409
+[v _straight_fwd `(v ~T0 @X0 1 ef ]
+"410
 {
-[; ;motor_control.c: 412: void spin_right(void)
-[; ;motor_control.c: 413: {
-[e :U _spin_right ]
+[; ;motor_control.c: 409: void straight_fwd(void)
+[; ;motor_control.c: 410: {
+[e :U _straight_fwd ]
 [f ]
-[; ;motor_control.c: 414: set_motor_speed(left, slow, 0);
-"414
-[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 4 `E19 -> 0 `i ]
-[; ;motor_control.c: 415: set_motor_speed(right, rev_slow, 0);
-"415
-[e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 2 `E19 -> 0 `i ]
-[; ;motor_control.c: 416: }
-"416
+[; ;motor_control.c: 411: set_motor_speed(left, slow, 75);
+"411
+[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 4 `E19 -> 75 `i ]
+[; ;motor_control.c: 412: set_motor_speed(right, slow, 0);
+"412
+[e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 4 `E19 -> 0 `i ]
+[; ;motor_control.c: 413: }
+"413
 [e :UE 526 ]
 }
-"417
-[v _turn_right `(v ~T0 @X0 1 ef ]
-"418
+"414
+[v _spin_right `(v ~T0 @X0 1 ef ]
+"415
 {
-[; ;motor_control.c: 417: void turn_right(void)
-[; ;motor_control.c: 418: {
+[; ;motor_control.c: 414: void spin_right(void)
+[; ;motor_control.c: 415: {
+[e :U _spin_right ]
+[f ]
+[; ;motor_control.c: 416: set_motor_speed(left, slow, 0);
+"416
+[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 4 `E19 -> 0 `i ]
+[; ;motor_control.c: 417: set_motor_speed(right, rev_slow, 0);
+"417
+[e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 2 `E19 -> 0 `i ]
+[; ;motor_control.c: 418: }
+"418
+[e :UE 527 ]
+}
+"419
+[v _turn_right `(v ~T0 @X0 1 ef ]
+"420
+{
+[; ;motor_control.c: 419: void turn_right(void)
+[; ;motor_control.c: 420: {
 [e :U _turn_right ]
 [f ]
-[; ;motor_control.c: 419: set_motor_speed(left, slow, 0);
-"419
-[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 4 `E19 -> 0 `i ]
-[; ;motor_control.c: 420: set_motor_speed(right, stop, 0);
-"420
-[e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 3 `E19 -> 0 `i ]
-[; ;motor_control.c: 421: }
+[; ;motor_control.c: 421: set_motor_speed(left, slow, 0);
 "421
-[e :UE 527 ]
+[e ( _set_motor_speed (3 , , -> . `E27 0 `E27 -> . `E19 4 `E19 -> 0 `i ]
+[; ;motor_control.c: 422: set_motor_speed(right, stop, 0);
+"422
+[e ( _set_motor_speed (3 , , -> . `E27 1 `E27 -> . `E19 3 `E19 -> 0 `i ]
+[; ;motor_control.c: 423: }
+"423
+[e :UE 528 ]
 }
